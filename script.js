@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const otpMessage = document.getElementById("otpMessage");
     const timerDisplay = document.getElementById("timerDisplay");
     const darkToggle = document.getElementById("darkModeToggle");
+    const addMoneyBtn = document.getElementById("addMoneyBtn");
   
     let timerInterval = null;
     let generatedOtp = "";
@@ -212,6 +213,31 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       
       appPrice.textContent = `${currencyMap[country]}${appDropdown.options[appDropdown.selectedIndex].dataset.price}`;
+    });
+  
+    // Add money button click handler
+    document.getElementById('addMoneyBtn').addEventListener('click', function() {
+      // Open Razorpay payment link
+      window.open('https://rzp.io/rzp/ATFtpasA', '_blank');
+      
+      // After successful payment, update balance
+      // Note: In a real implementation, you would verify the payment on your server
+      // and then update the balance. This is a simplified version.
+      userBalance += 100; // Add 100 to balance
+      updateBalanceDisplay();
+      
+      // Show success message
+      const walletSection = document.querySelector('.wallet-section');
+      const successMessage = document.createElement('div');
+      successMessage.textContent = '✅ Money added successfully!';
+      successMessage.style.color = '#28a745';
+      successMessage.style.marginTop = '10px';
+      walletSection.appendChild(successMessage);
+      
+      // Remove success message after 3 seconds
+      setTimeout(() => {
+        successMessage.remove();
+      }, 3000);
     });
   });
   
